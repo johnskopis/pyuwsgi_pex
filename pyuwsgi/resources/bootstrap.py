@@ -43,6 +43,11 @@ def activate_pex():
     env = PEXEnvironment(entry_point, pex_info)
     env.activate()
 
+  pex_path = [p for p in sys.path if not p.startswith('/usr')]
+  sys_path = [p for p in sys.path if p.startswith('/usr')]
+  pex_path.extend(sys_path)
+  sys.path = pex_path
+
   sys.stderr.write('[pex_uwsgi] sys.path=%s\n\n' % sys.path)
   return
 
